@@ -242,7 +242,7 @@ class Application(tk.Frame):
             self.books_table.insert('', "end", text=r[0], values=(r[3], r[5], ''))
 
     def fill_publisher_table(self):
-        self.books_table.delete(*self.publisher_table.get_children())
+        self.publisher_table.delete(*self.publisher_table.get_children())
         publisher_data = bookdb.get_publishers()
         for r in publisher_data:
             self.publisher_table.insert('', "end", text=r[0], values=(r[1], ''))
