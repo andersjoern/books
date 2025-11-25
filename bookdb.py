@@ -125,12 +125,12 @@ def save_publisher(pid: int|None, name: str):
     A new publisher is created if the value of pid is None.
     If the value of pid is an integer the publisher with that id is updated
 
-    :param pid:
-    :type pid:
-    :param name:
-    :type name:
-    :return:
-    :rtype:
+    :param pid: The publisher id
+    :type pid: None or int
+    :param name: The name of the publisher
+    :type name: str
+    :return: Result of insert or update
+    :rtype: bool
     """
     result = False
     try:
@@ -156,12 +156,12 @@ def save_publisher(pid: int|None, name: str):
 def save_author(pid: int|None, name: str):
     """
 
-    :param pid:
-    :type pid:
-    :param name:
-    :type name:
-    :return:
-    :rtype:
+    :param pid: The author id
+    :type pid: None or int
+    :param name: The name of the author
+    :type name: str
+    :return: Result of insert or update
+    :rtype: bool
     """
     result = False
     try:
@@ -187,8 +187,8 @@ def save_author(pid: int|None, name: str):
 def delete_book(book_id: int):
     """
 
-    :param book_id:
-    :type book_id:
+    :param book_id: The book id
+    :type book_id: int
     """
     if book_id is not None:
         with sqlite3.connect(books_db) as con:
@@ -200,8 +200,8 @@ def delete_book(book_id: int):
 def delete_publisher(publisher_id: int):
     """
 
-    :param publisher_id:
-    :type publisher_id:
+    :param publisher_id: The publisher id
+    :type publisher_id: int
     """
     if not isinstance(publisher_id, int):
         raise Exception("publisher_id has an invalid type, must be an integer")
@@ -215,8 +215,8 @@ def delete_publisher(publisher_id: int):
 def delete_author(author_id: int):
     """
 
-    :param author_id:
-    :type author_id:
+    :param author_id: The author id
+    :type author_id: int
     """
     if not isinstance(author_id, int):
         raise Exception("author_id has an invalid type, must be an integer")
@@ -230,8 +230,8 @@ def delete_author(author_id: int):
 def get_authors():
     """
 
-    :return:
-    :rtype:
+    :return: List of authors
+    :rtype: list of author rows as tuples
     """
     with sqlite3.connect(books_db) as con:
         curs = con.cursor()
@@ -242,8 +242,8 @@ def get_authors():
 def get_publishers():
     """
 
-    :return:
-    :rtype:
+    :return: List of publishers
+    :rtype: list of publisher rows as tuples
     """
     with sqlite3.connect(books_db) as con:
         curs = con.cursor()
