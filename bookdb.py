@@ -116,7 +116,8 @@ def save_book(pid : int|None, author: int, publisher: int, isbn: str, edition: s
                 con.commit()
                 result = True
     finally:
-        return result
+        result = False
+    return result
 
 
 def save_publisher(pid: int|None, name: str):
@@ -150,7 +151,8 @@ def save_publisher(pid: int|None, name: str):
                 con.commit()
                 result = True
     finally:
-        return result
+        result = False
+    return result
 
 
 def save_author(pid: int|None, name: str):
@@ -181,7 +183,8 @@ def save_author(pid: int|None, name: str):
                 con.commit()
                 result = True
     finally:
-        return result
+        result = False
+    return result
 
 
 def delete_book(book_id: int):
