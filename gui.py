@@ -99,18 +99,18 @@ class EditBookDlg(tk.Toplevel):
     def __init__(self, master=None, pid=None):
         super().__init__(master)
         self.pid = pid
-        tk.Label(self, text='Id:', width=10, anchor='e').grid(column=0, row=0, padx=3, pady=3)
-        tk.Label(self, text='Author:', width=10, anchor='e').grid(column=0, row=1, padx=3, pady=3)
-        tk.Label(self, text='Publisher:', width=10, anchor='e').grid(column=0, row=2, padx=3, pady=3)
-        tk.Label(self, text='ISBN:', width=10, anchor='e').grid(column=0, row=3, padx=3, pady=3)
-        tk.Label(self, text='Edition:', width=10, anchor='e').grid(column=0, row=4, padx=3, pady=3)
-        tk.Label(self, text='Title:', width=10, anchor='e').grid(column=0, row=5, padx=3, pady=3)
-        btn_ = tk.Button(self)
+        ttk.Label(self, text='Id:', width=10, anchor='e').grid(column=0, row=0, padx=3, pady=3)
+        ttk.Label(self, text='Author:', width=10, anchor='e').grid(column=0, row=1, padx=3, pady=3)
+        ttk.Label(self, text='Publisher:', width=10, anchor='e').grid(column=0, row=2, padx=3, pady=3)
+        ttk.Label(self, text='ISBN:', width=10, anchor='e').grid(column=0, row=3, padx=3, pady=3)
+        ttk.Label(self, text='Edition:', width=10, anchor='e').grid(column=0, row=4, padx=3, pady=3)
+        ttk.Label(self, text='Title:', width=10, anchor='e').grid(column=0, row=5, padx=3, pady=3)
+        btn_ = ttk.Button(self)
 
         self.author_dict = {r[0]: r[1] for r in bookdb.get_authors()}
         self.publisher_dict = {r[0]: r[1] for r in bookdb.get_publishers()}
 
-        self.id = tk.Entry(self)
+        self.id = ttk.Entry(self)
         self.id.grid(column=1, row=0, padx=3, pady=3)
 
         self.author = ttk.Combobox(self, values=list(self.author_dict.values()), state='readonly')
@@ -119,13 +119,13 @@ class EditBookDlg(tk.Toplevel):
         self.publisher = ttk.Combobox(self, values=list(self.publisher_dict.values()), state='readonly')
         self.publisher.grid(column=1, row=2, padx=3, pady=3)
 
-        self.isbn = tk.Entry(self)
+        self.isbn = ttk.Entry(self)
         self.isbn.grid(column=1, row=3, padx=3, pady=3)
 
-        self.edition = tk.Entry(self)
+        self.edition = ttk.Entry(self)
         self.edition.grid(column=1, row=4, padx=3, pady=3)
 
-        self.book_title = tk.Entry(self)
+        self.book_title = ttk.Entry(self)
         self.book_title.grid(column=1, row=5, padx=3, pady=3)
 
         btn_["text"] = "Save"
@@ -170,7 +170,7 @@ class Application(tk.Frame):
         self.master = master
         self.master.title("Books")
         self.master.geometry("600x400")
-        self.luk = tk.Button(self.master, text="Close", fg="red", command=self.master.destroy)
+        self.luk = ttk.Button(self.master, text="Close",  command=self.master.destroy)
         self.tab_control = ttk.Notebook(self.master)
         self.book_tab = ttk.Frame(self.tab_control)
         self.publisher_tab = ttk.Frame(self.tab_control)
