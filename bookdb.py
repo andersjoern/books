@@ -115,7 +115,8 @@ def save_book(pid : int|None, author: int, publisher: int, isbn: str, edition: s
                                                     'title': title, 'id': pid})
                 con.commit()
                 result = True
-    finally:
+    except Exception as e:
+        print(f"Error in save_book: {e}")   
         result = False
     return result
 
@@ -150,7 +151,8 @@ def save_publisher(pid: int|None, name: str):
                                 where id = :id""", {'name': name, 'id': pid})
                 con.commit()
                 result = True
-    finally:
+    except Exception as e:
+        print(f"Error in save_publisher: {e}")
         result = False
     return result
 
@@ -182,7 +184,8 @@ def save_author(pid: int|None, name: str):
                                 where id = :id""", {'name': name, 'id': pid})
                 con.commit()
                 result = True
-    finally:
+    except Exception as e:
+        print(f"Error in save_author: {e}")
         result = False
     return result
 
