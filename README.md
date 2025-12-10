@@ -14,7 +14,7 @@ A small Tkinter-based desktop app to manage books, authors and publishers using 
 ## How to run
 Run the app with Python 3.12+:
 ```sh
-python main.py
+python3 main.py
 ```
 The entry point is [`main.main`](main.py), which calls [`gui.start_gui`](gui.py).
 
