@@ -16,6 +16,14 @@ Run the app with Python 3.12+:
 ```sh
 python3 main.py
 ```
+
+or
+
+```sh
+uv run main.py
+```
+
+
 The entry point is [`main.main`](main.py), which calls [`gui.start_gui`](gui.py).
 
 ## Database
