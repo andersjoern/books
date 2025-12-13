@@ -59,7 +59,7 @@ UI behaviour:
 
 ## Notes & tips
 - No external dependencies are declared in pyproject.toml.
-- Ensure books.db exists and has the expected tables before running.
+- Ensure books.db exists and has the expected tables before running. (se **sql/create_books.sql**)
 - Python version is pinned in .python-version.
 - To extend: add input validation, error handling around DB operations, or package into a GUI installer.
 
