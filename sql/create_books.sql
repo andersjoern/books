@@ -8,14 +8,18 @@ CREATE TABLE IF NOT EXISTS "publishers" (
 	"name"	TEXT,
 	PRIMARY KEY("id")
 );
-CREATE TABLE IF NOT EXISTS "books" (
+CREATE TABLE IF NOT EXISTS  book_authors(
+  bookid     INTEGER, 
+  authorid   INTEGER, 
+  FOREIGN KEY(bookid) REFERENCES books(id),
+  FOREIGN KEY(authorid) REFERENCES authors(id)  
+);
+CREATE TABLE IF NOT EXISTS  "books" (
 	"id"	INTEGER,
-	"author"	INTEGER,
 	"publisher"	INTEGER,
 	"isbn"	TEXT,
 	"edition"	TEXT,
 	"title"	TEXT,
 	FOREIGN KEY("publisher") REFERENCES "publishers"("id"),
-	FOREIGN KEY("author") REFERENCES "authors"("id"),
 	PRIMARY KEY("id")
 );
