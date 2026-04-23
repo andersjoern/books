@@ -361,7 +361,7 @@ class Application(tk.Frame):
         self.books_table.delete(*self.books_table.get_children())
         books_data = bookdb.get_books()
         for r in books_data:
-            self.books_table.insert("", "end", text=r[0], values=(r[3], r[4], ""))
+            self.books_table.insert("", "end", text=r[0], values=(r[2], r[4], ""))
 
     def fill_publisher_table(self):
         self.publisher_table.delete(*self.publisher_table.get_children())
