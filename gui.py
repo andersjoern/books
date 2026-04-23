@@ -301,7 +301,9 @@ class Application(tk.Frame):
         )
         self.books_table["columns"] = ("ISBN", "Title")
         self.books_table.heading("#0", text="Id", anchor=tk.W)
+        self.books_table.column("#0", minwidth=0, width=5)
         self.books_table.heading("#1", text="ISBN", anchor=tk.W)
+        self.books_table.column("ISBN", minwidth=0, width=30)
         self.books_table.heading("#2", text="Title", anchor=tk.W)
         self.fill_book_table()
 
@@ -328,6 +330,7 @@ class Application(tk.Frame):
         ).grid(column=2, row=1)
         self.publisher_table["columns"] = ("Name",)
         self.publisher_table.heading("#0", text="Id", anchor=tk.W)
+        self.publisher_table.column("#0", minwidth=0, width=5)
         self.publisher_table.heading("#1", text="Name", anchor=tk.W)
         self.fill_publisher_table()
 
@@ -354,6 +357,7 @@ class Application(tk.Frame):
         ).grid(column=2, row=1)
         self.author_table["columns"] = ("Name",)
         self.author_table.heading("#0", text="Id", anchor=tk.W)
+        self.author_table.column("#0", minwidth=0, width=5)
         self.author_table.heading("#1", text="Name", anchor=tk.W)
         self.fill_author_table()
 
