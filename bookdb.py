@@ -108,9 +108,10 @@ def save_book(
             with sqlite3.connect(books_db) as con:
                 curs = con.cursor()
                 curs.execute(
-                    "insert into books (publisher, isbn, edition, title) values (?, ?, ?, ?) returning id",
+                    "insert into books (publisher, isbn, edition, title) values (?, ?, ?, ?)",
                     (publisher, isbn, edition, title),
                 )
+                #     con.commit()
                 pid = curs.lastrowid
                 if pid is not None:
                     save_bookaothors(con, pid, authors)
