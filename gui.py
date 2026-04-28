@@ -277,6 +277,8 @@ class Application(tk.Frame):
         self._create_publisher_table()
         self._create_author_table()
         self.luk.pack(side="bottom")
+        self.sort_column = None
+        self.sort_reverse = False
 
     def _create_books_table(self) -> None:
         self.book_tab.columnconfigure(0, weight=1)
@@ -300,11 +302,26 @@ class Application(tk.Frame):
             column=2, row=1
         )
         self.books_table["columns"] = ("ISBN", "Title")
-        self.books_table.heading("#0", text="Id", anchor=tk.W)
+        self.books_table.heading(
+            "#0",
+            text="Id",
+            command=lambda: self.treeview_sort_column("#0", False, 1),
+            anchor=tk.W,
+        )
         self.books_table.column("#0", minwidth=0, width=5)
-        self.books_table.heading("#1", text="ISBN", anchor=tk.W)
+        self.books_table.heading(
+            "#1",
+            text="ISBN",
+            command=lambda: self.treeview_sort_column("#1", False, 1),
+            anchor=tk.W,
+        )
         self.books_table.column("ISBN", minwidth=0, width=30)
-        self.books_table.heading("#2", text="Title", anchor=tk.W)
+        self.books_table.heading(
+            "#2",
+            text="Title",
+            command=lambda: self.treeview_sort_column("#2", False, 1),
+            anchor=tk.W,
+        )
         self.fill_book_table()
 
     def _create_publisher_table(self) -> None:
@@ -329,9 +346,19 @@ class Application(tk.Frame):
             self.publisher_tab, text="Delete publisher", command=self.DeletePublisher
         ).grid(column=2, row=1)
         self.publisher_table["columns"] = ("Name",)
-        self.publisher_table.heading("#0", text="Id", anchor=tk.W)
+        self.publisher_table.heading(
+            "#0",
+            text="Id",
+            command=lambda: self.treeview_sort_column("#0", False, 2),
+            anchor=tk.W,
+        )
         self.publisher_table.column("#0", minwidth=0, width=5)
-        self.publisher_table.heading("#1", text="Name", anchor=tk.W)
+        self.publisher_table.heading(
+            "#1",
+            text="Name",
+            command=lambda: self.treeview_sort_column("#1", False, 2),
+            anchor=tk.W,
+        )
         self.fill_publisher_table()
 
     def _create_author_table(self) -> None:
@@ -356,9 +383,19 @@ class Application(tk.Frame):
             self.author_tab, text="Delete author", command=self.DeleteAuthor
         ).grid(column=2, row=1)
         self.author_table["columns"] = ("Name",)
-        self.author_table.heading("#0", text="Id", anchor=tk.W)
+        self.author_table.heading(
+            "#0",
+            text="Id",
+            command=lambda: self.treeview_sort_column("#0", False, 3),
+            anchor=tk.W,
+        )
         self.author_table.column("#0", minwidth=0, width=5)
-        self.author_table.heading("#1", text="Name", anchor=tk.W)
+        self.author_table.heading(
+            "#1",
+            text="Name",
+            command=lambda: self.treeview_sort_column("#1", False, 3),
+            anchor=tk.W,
+        )
         self.fill_author_table()
 
     def fill_book_table(self):
@@ -378,6 +415,50 @@ class Application(tk.Frame):
         author_data = bookdb.get_authors()
         for r in author_data:
             self.author_table.insert("", "end", text=r[0], values=(r[1], ""))
+
+    def treeview_sort_column(self, col, reverse, tableid):
+        """
+        Sort treeview contents when a column header is clicked.
+        """
+        # Get all items from treeview
+
+        match tableid:
+            case 1:
+                self.treeview = self.books_table
+            case 2:
+                self.treeview = self.publisher_table
+            case 3:
+                self.treeview = self.author_table
+            case _:
+                self.treeview = None
+                return
+
+        if col == "#0":
+            items = [
+                (self.treeview.item(k)["text"], k) for k in self.treeview.get_children()
+            ]
+        else:
+            items = [
+                (self.treeview.set(k, col), k) for k in self.treeview.get_children("")
+            ]
+
+        # Toggle reverse if same column clicked
+        if self.sort_column == col:
+            reverse = not self.sort_reverse
+
+        self.sort_column = col
+        self.sort_reverse = reverse
+
+        items.sort(reverse=reverse)
+        # Sort items - try numeric sort first, fall back to string sort
+        # try:
+        #     items.sort(key=lambda x: float(x[0]), reverse=reverse)
+        # except ValueError:
+        #     items.sort(key=lambda x: x[0], reverse=reverse)
+
+        # Re-insert items in sorted order
+        for index, (val, k) in enumerate(items):
+            self.treeview.move(k, "", index)
 
     def EditBookDialog(self):
         focus = self.books_table.focus()
