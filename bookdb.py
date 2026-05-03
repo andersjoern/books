@@ -144,7 +144,7 @@ def save_book(
     return result
 
 
-def save_bookaothors(con, bookid: int, authors: list[int]):
+def save_bookaothors(con: sqlite3.Connection, bookid: int, authors: list[int]):
     delete_bookauthors(con, bookid)
     sql = "insert into book_authors (bookid, authorid) values (?, ?)"
     for authorid in authors:
@@ -152,7 +152,7 @@ def save_bookaothors(con, bookid: int, authors: list[int]):
         curs.execute(sql, (bookid, authorid))
 
 
-def delete_bookauthors(con, bookid: int):
+def delete_bookauthors(con: sqlite3.Connection, bookid: int):
     sql = "delete from book_authors where bookid = ? "
     curs = con.cursor()
     curs.execute(sql, (bookid,))
